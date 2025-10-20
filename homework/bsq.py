@@ -66,7 +66,8 @@ class BSQ(torch.nn.Module):
         Implement the BSQ decoder:
         - A linear up-projection into embedding_dim should suffice
         """
-        return self.embedding_projection(x)
+        x = self.embedding_projection(x)
+        return torch.nn.functional.gelu(x)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.decode(self.encode(x))
